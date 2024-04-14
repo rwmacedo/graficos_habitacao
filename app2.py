@@ -5,7 +5,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from dash_table.Format import Format, Scheme
+
 
 pd.options.display.float_format = '{:.2f}'.format # show only two digits
 
