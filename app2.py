@@ -5,6 +5,8 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+import matplotlib.pyplot as plt
 
 
 pd.options.display.float_format = '{:.2f}'.format # show only two digits
@@ -23,6 +25,7 @@ df_regiao= pd.read_csv('df_regiao.csv')
 df_contratacao= pd.read_csv('df_contratacao.csv')
 df_ifdata= pd.read_csv('df_ifdata.csv')
 df_percentual_instituicao= pd.read_csv('df_percentual_instituicao.csv')
+df_funding=pd.read_csv('df_funding.csv')
 
         
 ##  Graficos
@@ -59,10 +62,10 @@ fig17 = px.line(df_contratacao,
                  'indices_selic_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Evolução da taxa de Juros')
-fig18 = px.line(df_contratacao,
-              x='Data', 
-              y=['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br'],
-              labels={'value':'Valor', 'variable':'Categorias'},
+fig18 =px.line(df_funding,
+              x='ano', 
+              y=['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts'],
+                labels={'value':'Valor', 'variable':'Categorias'},
               title='Evolução das Fontes de recursos')
 fig19 = px.line(df_contratacao,
               x='Data', 
@@ -144,6 +147,13 @@ df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
 df_melted = df_melted[df_melted['Fontes'] != 'data']
 fig36 = px.pie(df_melted, names='Fontes', values='Valores', title='Crédito habitacional por instituição set/2023')
 
+#Decomposição
+result = seasonal_decompose(df_total['carteira_inadimplida_arrastada'], model='additive', period=12)
+trend = result.trend.reset_index()
+fig37 = result.plot()
+plt.tight_layout()
+
+
 # Tabelas
 #col = [{"name": i, "id": i} for i in df_percentual_instituicao.columns]
 #tab1 = df.to_dict('records')
@@ -186,7 +196,10 @@ st.title('Evolução')
 st.subheader('Carteira Total')
 st.plotly_chart(fig24, use_container_width=True)
 st.plotly_chart(fig01, use_container_width=True)  
-st.plotly_chart(fig02, use_container_width=True)  
+st.plotly_chart(fig02, use_container_width=True) 
+st.pyplot(fig37,use_container_width=True)
+
+ 
 st.plotly_chart(fig05, use_container_width=True)
 
 st.subheader('Carteira Total Deflacionada')
@@ -213,6 +226,7 @@ st.plotly_chart(fig15, use_container_width=True)
 st.plotly_chart(fig16, use_container_width=True) 
 st.plotly_chart(fig17, use_container_width=True)
 st.plotly_chart(fig18, use_container_width=True)
+
 st.subheader('Carteira (estoque) por Tipo') 
 st.plotly_chart(fig19, use_container_width=True)
 st.plotly_chart(fig20, use_container_width=True)
