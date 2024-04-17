@@ -26,7 +26,8 @@ df_contratacao= pd.read_csv('df_contratacao.csv')
 df_ifdata= pd.read_csv('df_ifdata.csv')
 df_percentual_instituicao= pd.read_csv('df_percentual_instituicao.csv')
 df_funding=pd.read_csv('df_funding.csv')
-
+df_sup15_ocupacao= pd.read_csv('df_sup15_ocupacao.csv')
+df_sup15_regiao= pd.read_csv('df_sup15_regiao.csv')
         
 ##  Graficos
 fig01 = px.line(df_total, x="data_base", y= 'carteira_ativa', title="Carteira Ativa")
@@ -35,7 +36,7 @@ fig03 = px.line(df_deflacionada, x="data_base", y= 'carteira_ativa_deflacionada'
 fig04 = px.line(df_deflacionada, x="data_base", y= 'carteira_inadimplida_arrastada_deflacionada', title="Carteira Inadimplida Arrastada Deflacionada")
 fig05 = px.line(df_deflacionada, x="data_base", y= 'inadimplencia', title="Inadimplencia Percentual")
 fig06 = px.line(df_por_renda, x="data_base", y="carteira_ativa", color='renda', title="Carteira Ativa Por Renda")
-fig07 = px.line(df_por_renda, x="data_base", y="carteira_inadimplida_arrastada", color='renda', title="carteira_inadimplida_arrastada por Renda")
+fig07 = px.line(df_por_renda, x="data_base", y="inadimplencia", color='renda', title="Inadimplencia por Renda")
 fig08 = px.line(df_porte_sup15, x="data_base", y="ticket_medio", color='renda', title="Ticket Medio por Renda")
 fig09 = px.line(df_ocupacao, x="data_base", y="carteira_ativa", color='ocupacao', title="Carteira Ativa por ocupação")
 fig10 = px.line(df_ocupacao, x="data_base", y="carteira_inadimplida_arrastada", color='ocupacao', title="Carteira inadimplida por ocupação")
@@ -50,7 +51,7 @@ fig15 = px.line(df_contratacao,
                  'credito_contratacao_contratado_pf_home_equity_br', 'credito_contratacao_contratado_pf_livre_br',  'credito_contratacao_contratado_pf_sfh_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Evolução do Crédito de Contratação por Tipo')
-fig16 = px.line(df_contratacao, x="Data", y= 'contratacao_pf_total', title="Evolução do Crédito de Contratação")
+fig16 = px.line(df_contratacao, x="Data", y= 'contratacao_pf_total', title="Total de Contratação Habitacional PF")
 
 fig17 = px.line(df_contratacao,
                 x='Data', 
@@ -110,23 +111,23 @@ fig24 = px.line(df_contratacao,
               labels={'value':'Percentual', 'variable':'Categorias'},
               title='Financiamento Habitacional SFH em relação ao PIB')
 fig25 = px.line(df_por_faixa, x="data_base", y="carteira_ativa", color='faixa', title="Carteira Ativa Por Faixa")
-fig26 = px.line(df_por_faixa, x="data_base", y="carteira_inadimplida_arrastada", color='faixa', title="carteira_inadimplida_arrastada por Faixa")
+fig26 = px.line(df_por_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplencia por Faixa")
 fig27 = px.line(df_sup15_faixa, x="data_base", y="ticket_medio", color='faixa', title="Ticket Medio por Faixa")
 
 df_specific_date = df_por_faixa[df_por_faixa['data_base'] == '2023-12-01']
 fig_28 = px.pie(df_specific_date, names='faixa', values='carteira_ativa', title='Carteira Ativa 2023')
-fig_29 = px.pie(df_specific_date, names='faixa', values='carteira_inadimplida_arrastada', title='Carteira Inadimplida Arrastada 2023')
+fig_29 = px.pie(df_specific_date, names='faixa', values='inadimplencia', title='Inadimplencia 2023')
 
 df_specific_date = df_ocupacao[df_ocupacao['data_base'] == '2023-12-01']
 fig_30 = px.pie(df_specific_date, names='ocupacao', values='carteira_ativa', title='Carteira Ativa por Ocupação 2023')
-fig_31 = px.pie(df_specific_date, names='ocupacao', values='carteira_inadimplida_arrastada', title='Carteira Inadimplida Arrastada por Ocupação 2023')
+fig_31 = px.pie(df_specific_date, names='ocupacao', values='inadimplencia', title='Inadimplencia por Ocupação 2023')
 
 df_specific_date = df_regiao[df_regiao['data_base'] == '2023-12-01']
-fig_32 = px.pie(df_specific_date, names='regiao', values='carteira_ativa', title='Carteira Ativa por Regiaão 2023')
-fig_33 = px.pie(df_specific_date, names='regiao', values='carteira_inadimplida_arrastada', title='Carteira Inadimplida Arrastada por Região 2023')
+fig_32 = px.pie(df_specific_date, names='regiao', values='carteira_ativa', title='Carteira Ativa por Região 2023')
+fig_33 = px.pie(df_specific_date, names='regiao', values='inadimplencia', title='Inadimplencia por Região 2023')
 
-df_filtered = df_contratacao[df_contratacao['Data'] == '2023-12-31']
-df_filtered =df_filtered[['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br']]
+df_filtered = df_funding[df_funding['Data'] == '2023-12-31']
+df_filtered =df_filtered[['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts']]
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
 df_melted = df_melted[df_melted['Fontes'] != 'data']
 fig34 = px.pie(df_melted, names='Fontes', values='Valores', title='Distribuição de Fontes de Financiamento em 2023-12-31')
@@ -152,6 +153,10 @@ result = seasonal_decompose(df_total['carteira_inadimplida_arrastada'], model='a
 trend = result.trend.reset_index()
 fig37 = result.plot()
 plt.tight_layout()
+
+fig38 = px.line(df_sup15_ocupacao, x="data_base", y="ticket_medio", color='ocupacao', title="Ticket Medio por Ocupação")
+
+fig39 = px.line(df_sup15_regiao, x="data_base", y="ticket_medio", color='regiao', title="Ticket Medio por Região")
 
 
 # Tabelas
@@ -216,11 +221,13 @@ st.subheader('Carteira Por Ocupação')
 st.plotly_chart(fig09, use_container_width=True)
 st.plotly_chart(fig10, use_container_width=True)
 st.plotly_chart(fig11, use_container_width=True)
-st.plotly_chart(fig12, use_container_width=True)
+st.plotly_chart(fig38, use_container_width=True)
 
 st.subheader('Carteira Por Região') 
+st.plotly_chart(fig12, use_container_width=True)
 st.plotly_chart(fig13, use_container_width=True)
 st.plotly_chart(fig14, use_container_width=True)
+st.plotly_chart(fig39, use_container_width=True)
 
 st.subheader('Contratação') 
 st.plotly_chart(fig15, use_container_width=True)
