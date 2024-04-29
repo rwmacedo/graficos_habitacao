@@ -84,8 +84,8 @@ fig20 = px.line(df_contratacao,
                  'credito_estoque_inadimplencia_pf_home_equity_br',
                  'credito_estoque_inadimplencia_pf_livre_br',
                  'credito_estoque_inadimplencia_pf_sfh_br'],
-              labels={'value':'Valor', 'variable':'Categorias'},
-              title='Estoque inadimplencia por tipo')
+              labels={'value':'Percentual', 'variable':'Categorias'},
+              title='Inadimplencia por tipo')
 fig21 = px.line(df_contratacao,
               x='Data', 
               y=['credito_contratacao_ltv_pf_comercial_br',
@@ -104,7 +104,14 @@ fig22 = px.line(df_contratacao,
                 'credito_contratacao_contratado_mediana_pf_sfh'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Mediana dos contratos por tipo')
-fig23 = px.line(df_ifdata, title="Carteira Habitacional por instituição")
+#fig23 = px.line(df_ifdata, title="Carteira Habitacional por instituição")
+#fig23 = px.line(df_percentual_instituicao, title="Carteira Habitacional por instituição")
+df_long = df_percentual_instituicao.melt(id_vars=['Data'], var_name='Instituição', value_name='Percentual')
+fig23 = px.line(df_long, x='Data', y='Percentual', color='Instituição', title='Carteira Habitacional por Instituição')
+
+fig40 = px.line(df_ifdata, title="Carteira Habitacional por instituição")
+
+
 fig24 = px.line(df_contratacao,
               x='Data', 
               y=['indices_imobiliario_pib_br'],
@@ -130,7 +137,7 @@ df_filtered = df_funding[df_funding['Data'] == '2023-12-31']
 df_filtered =df_filtered[['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts']]
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
 df_melted = df_melted[df_melted['Fontes'] != 'data']
-fig34 = px.pie(df_melted, names='Fontes', values='Valores', title='Distribuição de Fontes de Financiamento em 2023-12-31')
+fig34 = px.pie(df_melted, names='Fontes', values='Valores', title='Distribuição de Fontes de Financiamento disponíveis em 20231')
 
 df_filtered = df_contratacao[df_contratacao['Data'] == '2023-12-31']
 
@@ -141,7 +148,7 @@ df_filtered =df_filtered[['credito_estoque_carteira_credito_pf_comercial_br',
                  'credito_estoque_carteira_credito_pf_sfh_br']]
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
 df_melted = df_melted[df_melted['Fontes'] != 'data']
-fig35 = px.pie(df_melted, names='Fontes', values='Valores', title='Carteira Ativa por tipo em 2023-12-31')
+fig35 = px.pie(df_melted, names='Fontes', values='Valores', title='Carteira Ativa por tipo em 2023')
 
 df_filtered = df_percentual_instituicao[df_percentual_instituicao['Data'] == 'set/23']
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
@@ -157,6 +164,9 @@ plt.tight_layout()
 fig38 = px.line(df_sup15_ocupacao, x="data_base", y="ticket_medio", color='ocupacao', title="Ticket Medio por Ocupação")
 
 fig39 = px.line(df_sup15_regiao, x="data_base", y="ticket_medio", color='regiao', title="Ticket Medio por Região")
+
+
+
 
 
 # Tabelas
@@ -244,7 +254,7 @@ st.subheader('Mediana')
 st.plotly_chart(fig22, use_container_width=True)
 st.subheader('Por Instituição') 
 st.plotly_chart(fig23, use_container_width=True)
-
+st.plotly_chart(fig40, use_container_width=True)
 
 
  
