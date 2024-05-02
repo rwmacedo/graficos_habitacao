@@ -68,9 +68,13 @@ fig18 =px.line(df_funding,
               y=['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts'],
                 labels={'value':'Valor', 'variable':'Fontes'},
               title='Evolução das Fontes de recursos')
-fig18.update_traces(
-    name=['CRI', 'LCI', 'LH', 'LIG', 'SBPE', 'FGTS']
-)
+# Nomes das séries desejadas
+series_names = ['CRI', 'LCI', 'LH', 'LIG', 'SBPE', 'FGTS']
+
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig18.data[i].name = series_name
+
 fig19 = px.line(df_contratacao,
               x='Data', 
               y=['credito_estoque_carteira_credito_pf_comercial_br',
