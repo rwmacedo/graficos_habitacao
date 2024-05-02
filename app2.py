@@ -130,8 +130,8 @@ df_faixa= df_por_faixa[df_por_faixa['faixa'].isin(['Faixa1', 'Faixa2', 'Faixa3',
 fig25 = px.line(df_faixa, x="data_base", y="carteira_ativa", color='faixa', title="Carteira Ativa Por Faixa")
 fig25.update_layout(xaxis_title="Data", yaxis_title="Carteira Ativa")
 #fig26 = px.line(df_por_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplencia por Faixa")
-fig26 = px.line(df_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplencia Por Faixa")
-fig26.update_layout(xaxis_title="Data", yaxis_title="Carteira Ativa")
+fig26 = px.line(df_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplência Por Faixa")
+fig26.update_layout(xaxis_title="Data", yaxis_title="Inadimplência")
 
 fig27 = px.line(df_sup15_faixa, x="data_base", y="ticket_medio", color='faixa', title="Ticket Medio por Faixa")
 
