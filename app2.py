@@ -30,7 +30,7 @@ df_sup15_ocupacao= pd.read_csv('df_sup15_ocupacao.csv')
 df_sup15_regiao= pd.read_csv('df_sup15_regiao.csv')
         
 ##  Graficos
-fig01 = px.line(df_total, x="data_base", y= 'carteira_ativa', title="Carteira Ativa")
+fig01 = px.line(df_total, x="data_base", y= 'carteira_ativa', title="Financiamento Habitacional Total")
 fig02 = px.line(df_total, x="data_base", y= 'carteira_inadimplida_arrastada', title="Carteira Inadimplida Arrastada")
 fig03 = px.line(df_deflacionada, x="data_base", y= 'carteira_ativa_deflacionada', title="Carteira Ativa Deflacionada")
 fig04 = px.line(df_deflacionada, x="data_base", y= 'carteira_inadimplida_arrastada_deflacionada', title="Carteira Inadimplida Arrastada Deflacionada")
