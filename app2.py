@@ -117,6 +117,7 @@ fig24 = px.line(df_contratacao,
               y=['indices_imobiliario_pib_br'],
               labels={'value':'Percentual', 'variable':'Categorias'},
               title='Financiamento Habitacional SFH em relação ao PIB')
+fig24.update_traces(showlegend=False)
 fig25 = px.line(df_por_faixa, x="data_base", y="carteira_ativa", color='faixa', title="Carteira Ativa Por Faixa")
 fig26 = px.line(df_por_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplencia por Faixa")
 fig27 = px.line(df_sup15_faixa, x="data_base", y="ticket_medio", color='faixa', title="Ticket Medio por Faixa")
@@ -204,7 +205,7 @@ st.plotly_chart(fig34, use_container_width=True)
 st.subheader('Carteira Ativa por Tipo 2023')
 st.plotly_chart(fig35, use_container_width=True)
 
-st.subheader('Crédsito Habitacional por Instituição set/2023')
+st.subheader('Crédito Habitacional por Instituição set/2023')
 st.plotly_chart(fig36, use_container_width=True)
 
 st.title('Evolução')
