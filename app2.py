@@ -66,8 +66,11 @@ fig17 = px.line(df_contratacao,
 fig18 =px.line(df_funding,
               x='ano', 
               y=['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts'],
-                labels={'value':'Valor', 'variable':'Categorias'},
+                labels={'value':'Valor', 'variable':'Fontes'},
               title='Evolução das Fontes de recursos')
+fig18.update_traces(
+    name=['CRI', 'LCI', 'LH', 'LIG', 'SBPE', 'FGTS']
+)
 fig19 = px.line(df_contratacao,
               x='Data', 
               y=['credito_estoque_carteira_credito_pf_comercial_br',
@@ -138,7 +141,7 @@ df_filtered = df_funding[df_funding['Data'] == '2023-12-31']
 df_filtered =df_filtered[['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts']]
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
 df_melted = df_melted[df_melted['Fontes'] != 'data']
-fig34 = px.pie(df_melted, names='Fontes', values='Valores', title='Distribuição de Fontes de Financiamento disponíveis em 20231')
+fig34 = px.pie(df_melted, names='Fontes', values='Valores', title='Distribuição de Fontes de Financiamento disponíveis em 2023')
 
 df_filtered = df_contratacao[df_contratacao['Data'] == '2023-12-31']
 
