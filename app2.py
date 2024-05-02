@@ -56,6 +56,11 @@ fig15 = px.line(df_contratacao,
                  'credito_contratacao_contratado_pf_home_equity_br', 'credito_contratacao_contratado_pf_livre_br',  'credito_contratacao_contratado_pf_sfh_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Evolução do Crédito de Contratação por Tipo')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig15.data[i].name = series_name
 fig16 = px.line(df_contratacao, x="Data", y= 'contratacao_pf_total', title="Total de Contratação Habitacional PF")
 
 fig17 = px.line(df_contratacao,
@@ -68,6 +73,12 @@ fig17 = px.line(df_contratacao,
                  'indices_selic_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Evolução da taxa de Juros')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig17.data[i].name = series_name
+
 fig18 =px.line(df_funding,
               x='ano', 
               y=['fontes_cri_br', 'fontes_lci_br', 'fontes_lh_br', 'fontes_lig_br', 'fontes_sbpe_saldo_br', 'fgts'],
@@ -89,6 +100,12 @@ fig19 = px.line(df_contratacao,
                  'credito_estoque_carteira_credito_pf_sfh_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Estoque Carteira Ativa por tipo')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig19.data[i].name = series_name
+
 fig20 = px.line(df_contratacao,
               x='Data', 
               y=['credito_estoque_inadimplencia_pf_comercial_br',
@@ -98,6 +115,12 @@ fig20 = px.line(df_contratacao,
                  'credito_estoque_inadimplencia_pf_sfh_br'],
               labels={'value':'Percentual', 'variable':'Categorias'},
               title='Inadimplencia por tipo')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig20.data[i].name = series_name
+
 fig21 = px.line(df_contratacao,
               x='Data', 
               y=['credito_contratacao_ltv_pf_comercial_br',
@@ -107,6 +130,12 @@ fig21 = px.line(df_contratacao,
                  'credito_contratacao_ltv_pf_sfh_br'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='LTV por tipo')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig21.data[i].name = series_name
+
 fig22 = px.line(df_contratacao,
               x='Data', 
               y=['credito_contratacao_contratado_mediana_pf_comercial', 
@@ -116,6 +145,12 @@ fig22 = px.line(df_contratacao,
                 'credito_contratacao_contratado_mediana_pf_sfh'],
               labels={'value':'Valor', 'variable':'Categorias'},
               title='Mediana dos contratos por tipo')
+# Nomes das séries desejadas
+series_names = ['Comercial', 'FGTS', 'Home Equity', 'Livre', 'SFH']
+# Atualize os nomes das séries na legenda
+for i, series_name in enumerate(series_names):
+    fig22.data[i].name = series_name
+
 #fig23 = px.line(df_ifdata, title="Carteira Habitacional por instituição")
 #fig23 = px.line(df_percentual_instituicao, title="Carteira Habitacional por instituição")
 df_long = df_percentual_instituicao.melt(id_vars=['Data'], var_name='Instituição', value_name='Percentual')
