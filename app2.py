@@ -133,7 +133,10 @@ fig25.update_layout(xaxis_title="Data", yaxis_title="Carteira Ativa")
 fig26 = px.line(df_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplência Por Faixa")
 fig26.update_layout(xaxis_title="Data", yaxis_title="Inadimplência")
 
-fig27 = px.line(df_sup15_faixa, x="data_base", y="ticket_medio", color='faixa', title="Ticket Medio por Faixa")
+#fig27 = px.line(df_sup15_faixa, x="data_base", y="ticket_medio", color='faixa', title="Ticket Medio por Faixa")
+df_faixa2= df_sup15_faixa[df_sup15_faixa['faixa'].isin(['Faixa1', 'Faixa2', 'Faixa3', 'alta'])]
+fig27 = px.line(df_faixa2, x="data_base", y="ticket_medio", color='faixa', title="Ticket Médio Por Faixa")
+fig27.update_layout(xaxis_title="Data", yaxis_title="Valor")
 
 df_specific_date = df_por_faixa[df_por_faixa['data_base'] == '2023-12-01']
 fig_28 = px.pie(df_specific_date, names='faixa', values='carteira_ativa', title='Carteira Ativa 2023')
