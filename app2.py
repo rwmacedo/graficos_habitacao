@@ -204,12 +204,20 @@ df_filtered =df_filtered[['credito_estoque_carteira_credito_pf_comercial_br',
                  'credito_estoque_carteira_credito_pf_livre_br',
                  'credito_estoque_carteira_credito_pf_sfh_br']]
 df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
-df_melted = df_melted[df_melted['Fontes'] != 'data']
-fig35 = px.pie(df_melted, names='Fontes', values='Valores', title='Carteira Ativa por tipo em 2023')
+# Filtrar qualquer valor nulo ou não válido
+df_melted = df_melted.dropna()
 
-df_filtered = df_percentual_instituicao[df_percentual_instituicao['Data'] == 'set/23']
-df_melted = pd.melt(df_filtered, var_name='Fontes', value_name='Valores')
-df_melted = df_melted[df_melted['Fontes'] != 'data']
+# Renomear os valores para os nomes desejados
+df_melted['Fontes'] = df_melted['Fontes'].map({
+    'credito_estoque_carteira_credito_pf_comercial_br': 'Comercial',
+    'credito_estoque_carteira_credito_pf_fgts_br': 'FGTS',
+    'credito_estoque_carteira_credito_pf_home_equity_br': 'Home Equity',
+    'credito_estoque_carteira_credito_pf_livre_br': 'Livre',
+    'credito_estoque_carteira_credito_pf_sfh_br': 'SFH'
+})
+
+# Criar o gráfico de pizza com Plotly Express
+fig35 = px.pie(df_melted, names='Fontes', values='Valores', title='Carteira Ativa por tipo em 2023')
 fig36 = px.pie(df_melted, names='Fontes', values='Valores', title='Crédito habitacional por instituição set/2023')
 
 #Decomposição
