@@ -116,7 +116,7 @@ fig24 = px.line(df_contratacao,
               x='Data', 
               y=['indices_imobiliario_pib_br'],
               labels={'value':'Percentual', 'variable':'Categorias'},
-              title='Financiamento Habitacional SFH em relação ao PIB')
+              title='Financiamento Habitacional (%PIB)')
 fig24.update_traces(showlegend=False)
 fig25 = px.line(df_por_faixa, x="data_base", y="carteira_ativa", color='faixa', title="Carteira Ativa Por Faixa")
 fig26 = px.line(df_por_faixa, x="data_base", y="inadimplencia", color='faixa', title="Inadimplencia por Faixa")
