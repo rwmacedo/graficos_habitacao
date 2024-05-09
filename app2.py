@@ -28,6 +28,8 @@ df_percentual_instituicao= pd.read_csv('df_percentual_instituicao.csv')
 df_funding=pd.read_csv('df_funding.csv')
 df_sup15_ocupacao= pd.read_csv('df_sup15_ocupacao.csv')
 df_sup15_regiao= pd.read_csv('df_sup15_regiao.csv')
+df_sup15_regime= pd.read_csv('df_sup15_regime.csv')
+df_regime= pd.read_csv('df_regime.csv')
         
 ##  Graficos
 fig01 = px.line(df_total, x="data_base", y= 'carteira_ativa', title="Financiamento Habitacional Total")
@@ -38,13 +40,15 @@ fig05 = px.line(df_deflacionada, x="data_base", y= 'inadimplencia', title="Inadi
 fig06 = px.line(df_por_renda, x="data_base", y="carteira_ativa", color='renda', title="Carteira Ativa Por Renda")
 fig07 = px.line(df_por_renda, x="data_base", y="inadimplencia", color='renda', title="Inadimplencia por Renda")
 fig08 = px.line(df_porte_sup15, x="data_base", y="ticket_medio", color='renda', title="Ticket Medio por Renda")
-fig09 = px.line(df_ocupacao, x="data_base", y="carteira_ativa", color='ocupacao', title="Carteira Ativa por Ocupação")
+#fig09 = px.line(df_ocupacao, x="data_base", y="carteira_ativa", color='ocupacao', title="Carteira Ativa por Ocupação")
+fig09 = px.line(df_regime, x="data_base", y="carteira_ativa", color='regime', title="Carteira Ativa por Ocupação")
 # Posicionar a legenda abaixo do gráfico
 fig09.update_layout(legend=dict(orientation='h'))
 
 fig10 = px.line(df_ocupacao, x="data_base", y="carteira_inadimplida_arrastada", color='ocupacao', title="Carteira inadimplida por ocupação")
 fig10.update_layout(legend=dict(orientation='h'))
-fig11 = px.line(df_ocupacao, x="data_base", y="inadimplencia", color='ocupacao', title="Inadimplencia percentual por ocupação")
+#fig11 = px.line(df_ocupacao, x="data_base", y="inadimplencia", color='ocupacao', title="Inadimplencia percentual por ocupação")
+fig11 = px.line(df_regime, x="data_base", y="inadimplencia", color='regime', title="Inadimplencia percentual por ocupação")
 fig11.update_layout(legend=dict(orientation='h'))
 fig12 = px.line(df_regiao, x="data_base", y="carteira_ativa", color='regiao', title="Carteira Ativa por Região")
 fig13 = px.line(df_regiao, x="data_base", y="carteira_inadimplida_arrastada", color='regiao', title="Carteira Inadimplida por Região")
@@ -182,9 +186,20 @@ df_specific_date = df_por_faixa[df_por_faixa['data_base'] == '2023-12-01']
 fig_28 = px.pie(df_specific_date, names='faixa', values='carteira_ativa', title='Carteira Ativa 2023')
 fig_29 = px.pie(df_specific_date, names='faixa', values='inadimplencia', title='Inadimplencia 2023')
 
-df_specific_date = df_ocupacao[df_ocupacao['data_base'] == '2023-12-01']
-fig_30 = px.pie(df_specific_date, names='ocupacao', values='carteira_ativa', title='Carteira Ativa por Ocupação 2023')
-fig_31 = px.pie(df_specific_date, names='ocupacao', values='inadimplencia', title='Inadimplencia por Ocupação 2023')
+#df_specific_date = df_ocupacao[df_ocupacao['data_base'] == '2023-12-01']
+#fig_30 = px.pie(df_specific_date, names='ocupacao', values='carteira_ativa', title='Carteira Ativa por #Ocupação 2023')
+#fig_31 = px.pie(df_specific_date, names='ocupacao', values='inadimplencia', title='Inadimplencia por Ocupação #2023')
+
+df_specific_date = df_regime[df_regime['data_base'] == '2023-12-01']
+colors = {
+    'outro': 'light blue',
+    'Empresario': 'blue',
+    'Empresa_Privada': 'rose',
+    'Aposentado': 'red',
+    'Setor_Publico': 'green',
+}
+fig_30 = px.pie(df_specific_date, names='regime', values='carteira_ativa', title='Carteira Ativa por Ocupação 2023',color_discrete_map=colors)
+fig_31 = px.pie(df_specific_date, names='regime', values='inadimplencia', title='Inadimplencia por Ocupação 2023')
 
 df_specific_date = df_regiao[df_regiao['data_base'] == '2023-12-01']
 fig_32 = px.pie(df_specific_date, names='regiao', values='carteira_ativa', title='Carteira Ativa por Região 2023')
